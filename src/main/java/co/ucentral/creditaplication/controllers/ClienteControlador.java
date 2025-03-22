@@ -12,7 +12,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,16 +51,23 @@ public class ClienteControlador {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping(value = "/create")
-    public ResponseEntity<Cliente> create(@RequestBody ClienteCreateDto clienteDto) {
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createClient(
+            @RequestPart("client") ClienteCreateDto clienteDto,
+            @RequestPart("file") MultipartFile cv) {
         try {
             User user = service.signUp(new SignUpDto(clienteDto.getNumeroDeIdentificacion(), clienteDto.getPassword(), UserRole.USER));
             var cliente = modelMapper.map(clienteDto, Cliente.class);
             cliente.setUser(user);
+            String base64Cv = Base64.getEncoder().encodeToString(cv.getBytes());
+            cliente.setCv(base64Cv);
             Cliente userCreated = clientService.save(cliente);
             return new ResponseEntity<>(userCreated, HttpStatus.CREATED);
         } catch (InvalidJwtException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
