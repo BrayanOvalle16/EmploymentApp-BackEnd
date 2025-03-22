@@ -37,4 +37,8 @@ public class Cliente {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+    @Column(name = "CLI_CV", columnDefinition = "TEXT") // Guardar como TEXT en Base64
+    private String cv;
+    @Column(name = "CLI_PERFIL_LABORAL", nullable = true)
+    private String profileDescription;
 }
