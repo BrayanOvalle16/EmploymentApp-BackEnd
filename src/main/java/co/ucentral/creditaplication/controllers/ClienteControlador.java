@@ -5,7 +5,6 @@ import co.ucentral.creditaplication.models.User;
 import co.ucentral.creditaplication.models.dtos.ClienteCreateDto;
 import co.ucentral.creditaplication.models.dtos.SignUpDto;
 import co.ucentral.creditaplication.models.enums.UserRole;
-import co.ucentral.creditaplication.models.excetions.InvalidJwtException;
 import co.ucentral.creditaplication.services.AuthService;
 import co.ucentral.creditaplication.services.ClienteService;
 import org.modelmapper.ModelMapper;
