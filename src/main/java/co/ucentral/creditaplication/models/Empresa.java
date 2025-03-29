@@ -34,8 +34,8 @@ public class Empresa {
     @Column(name = "EMP_DESCRIPCION", nullable = true)
     private String descripcion;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
-    private Company company;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
     @Column(name = "EMP_TAMANO", nullable = true)
     private int tamano;
     @Column(name = "EMP_FUNDACION", nullable = true)

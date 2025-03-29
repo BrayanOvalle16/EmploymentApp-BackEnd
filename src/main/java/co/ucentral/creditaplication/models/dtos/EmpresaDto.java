@@ -9,6 +9,7 @@ public class EmpresaDto {
     private String industria;
     private String sitioWeb;
     private String correo;
+    private String password;
     private String telefono;
     private String direccion;
     private String descripcion;

@@ -2,13 +2,14 @@ package co.ucentral.creditaplication.controllers;
 
 
 
-import co.ucentral.creditaplication.models.Company;
 import co.ucentral.creditaplication.models.Empresa;
 
+import co.ucentral.creditaplication.models.InvalidJwtException;
+import co.ucentral.creditaplication.models.User;
 import co.ucentral.creditaplication.models.dtos.EmpresaDto;
 import co.ucentral.creditaplication.models.dtos.SignUpDto;
-import co.ucentral.creditaplication.models.enums.CompanyRole;
 
+import co.ucentral.creditaplication.models.enums.UserRole;
 import co.ucentral.creditaplication.services.AuthService;
 
 import co.ucentral.creditaplication.services.EmpresaService;
@@ -21,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,17 +59,14 @@ public class EmpresaControlador {
 
     @PostMapping("/create")
     public ResponseEntity<?> createEmpresa(
-            @RequestPart("empresa") EmpresaDto empresaDto,
-            @RequestPart("file") MultipartFile cv) {
+            @RequestBody() EmpresaDto empresaDto) {
         try {
-            Company company = service.signUp(new SignUpDto(empresaDto.getNombreEmpresa(), empresaDto.getNombreEmpresa(), CompanyRole.COMPANY));
+            User user = service.signUp(new SignUpDto(empresaDto.getCorreo(), empresaDto.getPassword(), UserRole.ADMIN));
             var empresa = modelMapper.map(empresaDto, Empresa.class);
-            empresa.setCompany(company);
+            empresa.setUser(user);
             Empresa companyCreated = empresaService.save(empresa);
             return new ResponseEntity<>(companyCreated, HttpStatus.CREATED);
-        } catch (InvalidKeyException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (IOException e) {
+        } catch (InvalidJwtException e) {
             throw new RuntimeException(e);
         }
     }

@@ -1,6 +1,7 @@
 package co.ucentral.creditaplication.controllers;
 
 import co.ucentral.creditaplication.models.Cliente;
+import co.ucentral.creditaplication.models.InvalidJwtException;
 import co.ucentral.creditaplication.models.User;
 import co.ucentral.creditaplication.models.dtos.ClienteCreateDto;
 import co.ucentral.creditaplication.models.dtos.SignUpDto;
@@ -56,7 +57,7 @@ public class ClienteControlador {
             @RequestPart("client") ClienteCreateDto clienteDto,
             @RequestPart("file") MultipartFile cv) {
         try {
-            User user = service.signUp(new SignUpDto(clienteDto.getNumeroDeIdentificacion(), clienteDto.getPassword(), UserRole.USER));
+            User user = service.signUp(new SignUpDto(clienteDto.getCorreoElectronico(), clienteDto.getPassword(), UserRole.USER));
             var cliente = modelMapper.map(clienteDto, Cliente.class);
             cliente.setUser(user);
             String base64Cv = Base64.getEncoder().encodeToString(cv.getBytes());

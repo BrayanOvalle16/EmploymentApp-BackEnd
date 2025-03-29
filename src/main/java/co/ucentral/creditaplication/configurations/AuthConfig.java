@@ -33,6 +33,7 @@ public class AuthConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/*").permitAll()
                         .requestMatchers("/Cliente/*").permitAll()
+                        .requestMatchers("/Empresa/*").permitAll()
                         .requestMatchers("/Credito/non-approved-credits").hasRole(AuthConfig.ADMIN)
                         .requestMatchers("/Credito/update-state").hasRole(AuthConfig.ADMIN)
                         .requestMatchers("/Credito/*").permitAll()

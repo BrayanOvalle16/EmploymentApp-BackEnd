@@ -1,5 +1,6 @@
 package co.ucentral.creditaplication.services;
 
+import co.ucentral.creditaplication.models.InvalidJwtException;
 import co.ucentral.creditaplication.models.User;
 import co.ucentral.creditaplication.models.dtos.SignUpDto;
 import co.ucentral.creditaplication.repositories.UserRepository;
