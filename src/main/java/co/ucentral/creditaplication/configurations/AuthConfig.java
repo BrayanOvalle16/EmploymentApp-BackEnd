@@ -34,6 +34,7 @@ public class AuthConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/*").permitAll()
                         .requestMatchers("/Cliente/*").permitAll()
                         .requestMatchers("/Empresa/*").permitAll()
+                        .requestMatchers("/chat/*").permitAll()
                         .requestMatchers("/Credito/non-approved-credits").hasRole(AuthConfig.ADMIN)
                         .requestMatchers("/Credito/update-state").hasRole(AuthConfig.ADMIN)
                         .requestMatchers("/Credito/*").permitAll()
