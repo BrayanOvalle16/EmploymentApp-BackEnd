@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto21  # or corretto17 depending on your app
+    commands:
+      - echo "Installing project dependencies..."
+      - mvn install -DskipTests=true
+
+  pre_build:
+    commands:
+      - echo "Running pre-build steps..."
+      - mvn validate
+
+  build:
+    commands:
+      - echo "Building the project..."
+      - mvn package -DskipTests=true
+
+  post_build:
+    commands:
+      - echo "Build completed on `date`"
+      - echo "Preparing artifacts..."
+
+artifacts:
+  files:
+    - target/*.jar
+  discard-paths: yes

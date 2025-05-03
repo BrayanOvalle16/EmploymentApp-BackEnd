@@ -55,7 +55,7 @@ public class BedrockClaudeService {
         // Payload para el request
         Map<String, Object> body = new HashMap<>();
         body.put("anthropic_version", "bedrock-2023-05-31");
-        body.put("max_tokens", 512); // ajustable según tu presupuesto
+        body.put("max_tokens", 800); // ajustable según tu presupuesto
         body.put("temperature", 0.7); // valor más neutro
         body.put("top_p", 0.9);
         body.put("top_k", 250);
