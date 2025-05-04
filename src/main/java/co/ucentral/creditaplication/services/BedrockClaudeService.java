@@ -11,6 +11,7 @@ import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelRequest;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -82,8 +83,9 @@ public class BedrockClaudeService {
     }
 
     private String getPromptTemplateForChat() throws IOException {
-        Path promptPath = new ClassPathResource("prompts/interviewer_prompt.txt").getFile().toPath();
-        PROMPT_TEMPLATE = Files.readString(promptPath, StandardCharsets.UTF_8);
-        return PROMPT_TEMPLATE;
+        try (InputStream inputStream = new ClassPathResource("prompts/interviewer_prompt.txt").getInputStream()) {
+            PROMPT_TEMPLATE = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+            return PROMPT_TEMPLATE;
+        }
     }
 }
