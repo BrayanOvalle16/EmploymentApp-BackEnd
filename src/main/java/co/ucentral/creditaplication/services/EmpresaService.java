@@ -41,4 +41,8 @@ public class EmpresaService implements Serializable {
     public void delete(long id) {
         repository.deleteById(id);
     }
+
+    public Empresa findByUserId(Long userId) {
+        return repository.findByUser_Id(userId);
+    }
 }

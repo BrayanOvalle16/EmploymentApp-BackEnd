@@ -39,4 +39,9 @@ public class ClienteService implements Serializable {
     public void delete(long id) {
         repository.deleteById(id);
     }
+
+    public Optional<Cliente> findByUserId(Long userId) {
+        return repository.findByUserId(userId);
+    }
+
 }

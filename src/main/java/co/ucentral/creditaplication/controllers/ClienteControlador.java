@@ -51,6 +51,14 @@ public class ClienteControlador {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/by-user/{userId}")
+    public ResponseEntity<Cliente> getClienteByUserId(@PathVariable("userId") long userId) {
+        Optional<Cliente> clienteOptional = clientService.findByUserId(userId);
+        return clienteOptional
+                .map(cliente -> new ResponseEntity<>(cliente, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 
     @PostMapping("/create")
     public ResponseEntity<?> createClient(

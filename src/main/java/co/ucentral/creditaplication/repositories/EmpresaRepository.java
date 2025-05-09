@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface EmpresaRepository extends JpaRepository<Empresa, Long>, JpaSpecificationExecutor<Empresa> {
     Empresa findByNombreEmpresa(String nombreEmpresa);
+    Empresa findByUser_Id(Long userId);
 }
 

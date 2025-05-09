@@ -57,6 +57,16 @@ public class EmpresaControlador {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/by-user/{userId}")
+    public ResponseEntity<Empresa> getEmpresaByUserId(@PathVariable Long userId) {
+        Empresa empresa = empresaService.findByUserId(userId);
+        if (empresa != null) {
+            return ResponseEntity.ok(empresa);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<?> createEmpresa(
             @RequestBody() EmpresaDto empresaDto) {
